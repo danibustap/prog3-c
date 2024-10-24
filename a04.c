@@ -24,23 +24,22 @@ int main (){
     for (j=0; j<c; j++){
         printf("C");
     }
-    j=0;
+    
     for (j=0; j<l; j++){
         printf("L");
     }
-    j=0;
+    
     for (j=0; j<x; j++){
         printf("X");
     }
-    j=0;
+    
     for (j=0; j<v; j++){
         printf("V");
     }
-    j=0;
+    
     for (j=0; j<i; j++){
         printf("I");
     }
-    j=0;
     
     return 0;
 
