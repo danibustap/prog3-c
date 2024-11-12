@@ -1,26 +1,25 @@
 #include <stdio.h>
 #define BITS 16 /*define a constant, #define has no datatype, it can be wathever*/
-void imprimirBinario(unsigned int numero) {
+void schreibbit(unsigned int numero) { /*Transform the decimal number into bits*/
     int i;
-    for (i=BITS-1; i>=0; i--) {
-        printf("%d", (numero >> i) & 1);
-    }
+    for (i=BITS-1; i>=0; i--) { 
+        printf("%d", (numero >> i) & 1);/*Print the bits one by one from the most significant to the less significant*/
+    }                                   /*with &1 it's possible to print the numbers in bits instead of decimal*/
     printf("\n");
 }
 
-unsigned int leerBinario(void) {
-    char binario[BITS + 1];  // + 1 = terminador nulo (marks the end of the string)
+unsigned int liesbit(void) {
+    char binary[BITS + 1];  /* + 1 = terminador nulo (marks the end of the string)*/
     unsigned int numero = 0;
     int i;
 
-    // Leer entrada ignorando espacios al inicio
-    scanf(" %16s", binario);
+    /*Leer entrada ignorando espacios al inicio*/
+    scanf(" %16s", binary);
 
-    // Convertir cadena binaria a unsigned int
-    for (i = 0; i < strlen(binario); i++) { // strlen returns the lenght of a string (before the null terminator)
-        numero = (numero << 1) | (binario[i] - '0');  // move the last bit at the right one position to the left to make space for the new bit
-        //do the OR operation to get the bits from number and add the bits of binary[1]
-        // '0' = 48, '1' = 49; '0'-'0'= 48-48 = 0
+    for (i = 0; i < strlen(binary); i++) { /*strlen returns the lenght of a string (before the null terminator)*/
+        numero = (numero << 1) | (binary[i] - '0');  /*move the last bit at the right, one position to the left to make space for the new bit*/
+        /*do the OR operation to get the bits from number and add the bits of binary[1]
+        '0' = 48, '1' = 49; '0'-'0'= 48-48 = 0 */
     }
 
     return numero;
@@ -30,22 +29,21 @@ int main() {
     unsigned int a, b;
 
     printf("Ingrese el primer número binario (hasta 16 bits): ");
-    a = leerBinario();
+    a = liesbit();
 
     printf("Ingrese el segundo número binario (hasta 16 bits): ");
-    b = leerBinario();
+    b = liesbit();
 
-    // Mostrar resultados de las operaciones en formato binario de 16 bits
     printf("\nResultados en binario (16 bits):\n");
 
     printf("a & b  = ");
-    imprimirBinario(a & b); // The result of this operation is the argument
+    schreibbit(a & b); 
 
     printf("a | b  = ");
-    imprimirBinario(a | b);
+    schreibbit(a | b);
 
     printf("a ^ b  = ");
-    imprimirBinario(a ^ b);
+    schreibbit(a ^ b);
 
     return 0;
 }
