@@ -10,7 +10,7 @@ int main(void) {
 
     printf("%p %p %p\n", (void*)v, /*v points to the array's first element*/
     (void*)&v[0],  /*converts pointer v to a generic pointer "void*"" */
-    (void*)&v[10]); /*without & it would be a pointer to the value and not to the address */
+    (void*)&v[10]); /*without & it would be a pointer to the value v[10] and not to the address of v */
     /* cast is necessary because %p expects a generic pointer*/
     
     return 0;
