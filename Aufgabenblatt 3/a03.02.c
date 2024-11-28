@@ -5,14 +5,14 @@ int main(int argc, char *argv[]){ /*argc = number of arguments passed from the c
 
     char input;
     char encrypt_table[26] = {'w', 'g', 's', 'n', 'q', 'c', 'd', 'v', 'm', 'e', 'y', 'l', 'u', 'z', 'o', 'a', 'b', 'h', 'r', 'j', 'f', 'k', 'x', 'i', 'p', 't'};
-    char decrypt_table[26] = {'o', 'p', 'f', 't', 'i', 'j', 'e', 'q', 'x', 'r', 'y', 'k', 'm', 'd', 'n', 'u', 'z', 'h', 'a', 'w', 'l', 'b', 'c', 'g', 'v', 's'};
+    char decrypt_table[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
     char output;
 
     if (argc <= 1) {
         printf("Usage: %s encrypt|decrypt\n", argv[0]);
         return 1;
     }
-    
+
     printf("Geben Sie Ihre Text zum Entschluessseln ein:");
     while((input = getchar()) != EOF){ 
         if(argc > 1 && strcmp(argv[1], "encrypt") == 0){ /*argv[0] contiene el nombre del programa*/
