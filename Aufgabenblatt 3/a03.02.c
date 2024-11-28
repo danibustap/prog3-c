@@ -8,6 +8,11 @@ int main(int argc, char *argv[]){ /*argc = number of arguments passed from the c
     char decrypt_table[26] = {'o', 'p', 'f', 't', 'i', 'j', 'e', 'q', 'x', 'r', 'y', 'k', 'm', 'd', 'n', 'u', 'z', 'h', 'a', 'w', 'l', 'b', 'c', 'g', 'v', 's'};
     char output;
 
+    if (argc <= 1) {
+        printf("Usage: %s encrypt|decrypt\n", argv[0]);
+        return 1;
+    }
+    
     printf("Geben Sie Ihre Text zum Entschluessseln ein:");
     while((input = getchar()) != EOF){ 
         if(argc > 1 && strcmp(argv[1], "encrypt") == 0){ /*argv[0] contiene el nombre del programa*/
