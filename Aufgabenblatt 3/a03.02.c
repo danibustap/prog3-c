@@ -1,7 +1,7 @@
 #include <stdio.h>
 int main(int argc, char *argv[]){ /*argc = number of arguments passed from the command line*/
     /*argv[] = contains the arguments as pointers*/
-    /*to save strings we have to use pointers (they point to the first element of the string? because the strings will be saved in the static memory, so they can't be modified*/
+    /*we have to use pointers to save strings (they point to the first element of the string) because the strings will be saved in the static memory, so they can't be modified*/
 
     char input;
     char encrypt_table[26] = {'w', 'g', 's', 'n', 'q', 'c', 'd', 'v', 'm', 'e', 'y', 'l', 'u', 'z', 'o', 'a', 'b', 'h', 'r', 'j', 'f', 'k', 'x', 'i', 'p', 't'};
