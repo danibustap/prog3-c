@@ -7,33 +7,40 @@ typedef struct Node{ /*structs is like a class without methods*/
     struct Node* next;
 }Node;
 
+Node* createNode(const char* input){ /*const to avoid that the pointer change the content of the list*/
+    Node* new_node = malloc(sizeof(Node)); /*allocate the node in a memory space. malloc allows this variable to stay in the memory, otherwise it will be deleted when the function ends*/
+    if(!new_node){ 
+        perror("Error assigning memory");
+        return 1;
+    }
+    /*char* strcpy(destiny name, origin name, destiny size)*/
+    strncpy(new_node->name, input, 25);
+    new_node->name[25] = '\0'; /*add null pointer*/
+    new_node->next = NULL; /*Null marks the end of the list (helpful to iterate)*/
+    return new_node;
+}
+
 int main(int argc, char* argv[]){
-    Node* head = NULL; /*head must be initialized*/
-    Node* tail = NULL; /*tail always point to the last node of the list*/
+    Node* head = NULL; /*points to the first node of the list*/
+    Node* tail = NULL; /*tail always points to the last node of the list*/
     char input[25];
 
     printf("Geben Sie die Namen ein:");
-    /*scanf recognizes the separators automatically (' ',\t, \n) */
     while(scanf("%25s", &input) != EOF){
-        Node* new_node = malloc(sizeof(Node)); /*allocate the node in a memory space*/
-        if(!new_node){ 
-            perror("Error assigning memory");
-            return 1;
-        }
-        /*char* strcpy(destiny name, origin name)*/
-        strncpy(new_node->name, input, 25);
-
+        Node* new_node = createNode(input);
         if(head == NULL){
             head = new_node;
-            tail = new_node; /* */
+            tail = new_node;
         }else{
-            tail ->next = new_node;
+            tail->next = new_node; /*access to 'next' pointed by tail*/
             tail = new_node;
         }
     }
-
+    tail->next = head; /*make the list circular*/
+    /*head > [Alice|Bob] > [Bob|Charlie] > [Charlie|NULL] */
+    
     /*print names*/
-    int i = 0;
+    int i = 0; 
     Node* current = head;
     while(i <argc && current){
         printf("%s\n", &current->name);
