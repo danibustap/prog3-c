@@ -17,6 +17,15 @@ void printList(nodep lst){
     }
 }
 
+void freeList(nodep lst){
+    nodep current = lst;
+    while(current != NULL){
+        nodep next = current->next;
+        free(current);
+        current = next;
+    }
+}
+
 nodep insertAt (nodep lst, int pos, char *inhalt){
     nodep new_node = malloc(sizeof(Node)); /* nodep new_node == to Node* new_node. malloc always must be freed with "free"*/
     nodep current = lst; /*first known node in the list*/
@@ -61,28 +70,17 @@ nodep insertAt (nodep lst, int pos, char *inhalt){
             prev_node = current;
             current = current->next;
         }
-        
         prev_node->next = new_node;
         new_node->prev = prev_node;
 
-        if(current != NULL){
+        if(current != NULL){ /* if there is a node after the one that we just inserted*/
             new_node->next = current;
             current->prev = new_node;   
         }
         return lst;
     }
-    printf("Invalid position. Valid positions: 0, > 0 and -1.\n");
+    printf("(Insert) Invalid position. Valid positions: 0, > 0 and -1.\n");
     return lst;
-
-}
-
-void freeList(nodep lst){
-    nodep current = lst;
-    while(current != NULL){
-        nodep next = current->next;
-        free(current);
-        current = next;
-    }
 }
 
 nodep deleteAt(nodep lst, int pos){
@@ -90,6 +88,7 @@ nodep deleteAt(nodep lst, int pos){
     nodep current = lst;
     nodep prev_node = NULL;
     nodep next_node = NULL;
+    nodep temp;
 
     if(lst == NULL){
         printf("The list you are trying to delete from is empty.\n");
@@ -97,45 +96,69 @@ nodep deleteAt(nodep lst, int pos){
     }
 
     if (pos == 0){
-        nodep temp = lst->next;
+        temp = lst->next; /*save the second node*/
         free(lst);
         lst = temp;
-        lst->prev = NULL;
-        lst->next = lst->next;
-    } else if(pos == -1){
+        if (lst != NULL){
+            lst->prev = NULL;
+        }
+        return lst;
+    } 
+    else if(pos == -1){
         while (current->next != NULL){
             current = current->next;
         }
         prev_node = current->prev;
-        prev_node->next = NULL;
-        free(current); 
-    }else{
+        if (prev_node != NULL){
+            prev_node->next = NULL;
+        }
+        else{
+            lst = NULL; /*if there was only one node, the list is now empty*/
+        }
+        free(current);
+        return lst;
+
+    }
+    else if (pos > 0){
         for(i=0; i<pos; i++){
-            if(current->next != NULL){
-                current = current->next;
-            }else{
-                printf("The requested position exceed the number of nodes available");
-                return lst;
+            if(current == NULL){
+                printf("The requested position exceed the number of available nodes");
+                return lst;  
             }
+            current = current->next;     
+        }
+        if(current == NULL){
+            printf("The requested position exceed the number of available nodes");
+            return lst;  
         }
         prev_node = current->prev;
         next_node = current->next;
+        
+        if(next_node != NULL){
+            prev_node->next = next_node;
+            next_node->prev = prev_node;
+        }else{
+            prev_node->next = NULL;
+        }
+        
         free(current);
-        prev_node->next = next_node;
-        next_node->prev = prev_node; 
+        return lst; 
     }
+    printf("(Delete) Invalid position. Valid positions: 0, > 0 and -1.\n");
     return lst;
 }
   
 int main(){
     nodep list = NULL;
-    list = insertAt(list, 0, "hola soy el nodo 1");
-    list = insertAt(list, 1, "soy el nodo 2");
-    list = insertAt(list, 2, "soy el nodo 3");
-    list = insertAt(list, -1, "soy el nodo 4");
+    nodep lista = NULL;
+    lista = insertAt(lista, 0, "");
+    list = insertAt(list, 0, "soy el nodo 0");
+    list = insertAt(list, 1, "soy el nodo 1");
+    list = insertAt(list, 2, "soy el nodo 2");
+    list = insertAt(list, -1, "soy el nodo 3");
     
     printList(list);
-    list = deleteAt(list, 1);
+    list = deleteAt(lista, 0);
     printList(list);
    
     return 0;
