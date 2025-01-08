@@ -17,7 +17,7 @@ void printList(nodep lst){
     }
 }
 
-void freeList(nodep lst){
+void deleteList(nodep lst){
     nodep current = lst;
     while(current != NULL){
         nodep next = current->next;
@@ -26,7 +26,7 @@ void freeList(nodep lst){
     }
 }
 
-nodep insertAt (nodep lst, int pos, char *inhalt){
+nodep insertAt(nodep lst, int pos, char *inhalt){
     nodep new_node = malloc(sizeof(Node)); /* nodep new_node == to Node* new_node. malloc always must be freed with "free"*/
     nodep current = lst; /*first known node in the list*/
     nodep prev_node = NULL;
@@ -52,7 +52,7 @@ nodep insertAt (nodep lst, int pos, char *inhalt){
         new_node->next = lst; /*new_node points with next to the node that was in the first position before (lst)*/
         return new_node; 
     } 
-    else if (pos == -1){
+    else if(pos == -1){
         while(current->next != NULL){
             current = current->next;
         }
@@ -60,7 +60,7 @@ nodep insertAt (nodep lst, int pos, char *inhalt){
         new_node->prev = current;
         return lst; /*always return first node*/
     }
-    else if (pos > 0){
+    else if(pos > 0){
         for(i=0; i<pos; i++){
             if(current == NULL){
                 printf("Invalid position. The list is too short.\n");
@@ -140,26 +140,55 @@ nodep deleteAt(nodep lst, int pos){
         }else{
             prev_node->next = NULL;
         }
-        
         free(current);
         return lst; 
     }
     printf("(Delete) Invalid position. Valid positions: 0, > 0 and -1.\n");
     return lst;
 }
-  
+
+nodep copyList(nodep lst){
+    nodep new_node = malloc(sizeof(Node));
+    nodep head = NULL;
+    nodep current = lst;
+    new_node->next = NULL;
+    new_node->prev = NULL;
+    while(current != NULL){
+        if(head == NULL){
+            head = lst;
+            head->data = current->data;
+            head->prev = current->prev;
+            head->next = current->next;
+        }else{
+            new_node->data = current->data;
+            new_node->prev = current->prev;
+            new_node->next = current->next;
+        }
+        current = current->next;
+    }
+    return head;
+}
+
 int main(){
     nodep list = NULL;
     nodep lista = NULL;
-    lista = insertAt(lista, 0, "");
+
     list = insertAt(list, 0, "soy el nodo 0");
     list = insertAt(list, 1, "soy el nodo 1");
     list = insertAt(list, 2, "soy el nodo 2");
     list = insertAt(list, -1, "soy el nodo 3");
     
     printList(list);
-    list = deleteAt(lista, 0);
+    list = deleteAt(list, 0);
     printList(list);
-   
+
+    lista = insertAt(lista, 0, "soy el nodo unico");
+    printList(lista);
+    lista = deleteAt(lista, 0);
+    printList(lista);
+
+    deleteList(list);
+    deleteList(lista);
+
     return 0;
 }
