@@ -154,17 +154,6 @@ nodep copyList(nodep lst){
     new_node->next = NULL;
     new_node->prev = NULL;
     while(current != NULL){
-        if(head == NULL){
-            head = lst;
-            head->data = current->data;
-            head->prev = current->prev;
-            head->next = current->next;
-        }else{
-            new_node->data = current->data;
-            new_node->prev = current->prev;
-            new_node->next = current->next;
-        }
-        current = current->next;
     }
     return head;
 }
