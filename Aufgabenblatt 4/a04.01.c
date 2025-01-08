@@ -21,9 +21,9 @@ int main(int argc, char* argv[]){
     Node* head = NULL; /*points to the first node of the list*/
     Node* tail = NULL; /*tail always points to the last node of the list*/
     Node* current = NULL;
-    Node* temp = NULL;
+    Node* prev = NULL;
     char input[25];
-    int i = 0; 
+    int i; 
 
     printf("Geben Sie die Namen ein:\n");
     while(scanf("%25s", &input) != EOF){
@@ -41,25 +41,26 @@ int main(int argc, char* argv[]){
     tail > [Charlie|NULL]*/
     
     /*print names*/
+    printf("Number of args: %d\n", argc);
     current = head;
-    while(i <argc && current){
-        printf("Number of args: %d\n", &argc);
-        printf("%s\n", &current->name);
-        /*Node* temp = current;*/
-        current = current->next;
-        if(current == NULL){
-            current = head;
+    while(current->next != current){ /*mientras haya más de un nodo en la lista*/
+        for(i=0; i<argc-1; i++){ 
+            prev = current;
+            current = current->next;
         }
-        i++;
+        printf(" Ausgezaehlt: %s\n", &current->name); /*se elimina y se vuelve a contar hasta que quede solo un nodo*/
+        prev->next = current->next;
+        free(current);
+        current = prev->next;
     }
     printf("Verlierer: %s", current->name);
     
     /* Free memory */
     current = head;
     while(current){
-        temp = current; /* save current node address */
+        prev = current;
         current = current->next;
-        free(temp); /* releases the memory that was assigned with malloc */
+        free(prev); /* releases the memory that was assigned with malloc */
     }
     return 0;
 }
