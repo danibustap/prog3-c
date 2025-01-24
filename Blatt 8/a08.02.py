@@ -5,11 +5,10 @@ def ggT(x, y):
     return x           #si x<y, entonces x%y == x
 
 
-with open(r"C:\Users\bolon\Documents\UNI\Prog3\prog3-c\Blatt 8\ggtbeispiele.txt") as file: #r = raw string(ignores \n, \t, etc)
+with open(r"C:\Users\Startllar\OneDrive\Documentos\UNI STUFF\Prog3000\prog3-c\Blatt 8\ggtbeispiele.txt") as file: #r = raw string(ignores \n, \t, etc)
     for line in file:
         numbers = line.split() #numbers = ["10", "20", "30"]
         a,b, expected_ggtr = map(int, numbers) #map applies a function to each element of a list
-        
         ggt_value = ggT(a, b)
 
         if ggt_value != expected_ggtr:
